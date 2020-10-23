@@ -19,7 +19,7 @@ public class ChooseCmd implements CommandExecutor {
         if(label.equals("choose")) {
             KitDuel.openInv(p);
 
-            p.sendMessage(Util.systemMessage("Choisis le type de duel"));
+            p.sendMessage(Util.sysMsg("Choisis le type de duel"));
             return true;
         }
 

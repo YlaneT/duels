@@ -11,8 +11,12 @@ public class Util {
 	 * @param str ex : "message systeme"
 	 * @return message système en jaune ex : "<SYSTEM> message systeme"
 	 */
-	public static String systemMessage (String str){
-		return "§e <SYSTEM> " + str;
+	public static String sysMsg (String str){
+		return "§e " + str;
+	}
+	
+	public static String pName (String str){
+		return "§6 " + str;
 	}
 	
 	/**
