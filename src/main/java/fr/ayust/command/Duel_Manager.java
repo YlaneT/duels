@@ -6,20 +6,36 @@ import main.java.fr.ayust.command.Duel;
 import org.bukkit.*;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.PlayerInventory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Duel_Manager implements CommandExecutor {
 	
 	private List<Demande_Duel> demandes;
 	private List<Duel> duels_en_cours;
 	
+	private static Duel_Manager INSTANCE;
+	
+	private Duel_Manager() {
+		this.demandes = new ArrayList<>();
+		this.duels_en_cours = new ArrayList<Duel>();
+	}
+	
+	public static Duel_Manager getInstance() {
+		if(INSTANCE == null) {
+			INSTANCE = new Duel_Manager();
+		}
+		
+		return INSTANCE;
+	}
+	
 	public boolean onCommand ( CommandSender sender, Command command, String label, String[] args ) {
 		
 		if (label.equalsIgnoreCase("duel") && sender instanceof Player) {
 			
 			Player playerSender = ( Player ) sender;
+			Player playerReceiver;
 			
 			if (args.length == 0) {
 				
@@ -29,12 +45,14 @@ public class Duel_Manager implements CommandExecutor {
 			}
 			
 			// S'il y a un nom derrière /duel
-			if (args.length == 1) {
+			else if (args.length == 1) {
 				String target = args[0];
 				
-				Player playerReceiver = Bukkit.getPlayer(target);
+				playerReceiver = Bukkit.getPlayer(target);
 				
 				this.demandes.add(new Demande_Duel(playerSender, playerReceiver));
+				playerSender.sendMessage(Util.sysMsg("Vous avez demander un duel à §1") + Util.pName(playerReceiver.getName()));
+				playerReceiver.sendMessage(Util.sysMsg("Vous venez de recevoir une proposition de duel de §1") + Util.pName(playerSender.getName()));
 				
 				// TODO : Si le joueur est déjà en duel, stop
 				
@@ -62,26 +80,22 @@ public class Duel_Manager implements CommandExecutor {
                     playerReceiver.getInventory().clear();
 					
 				}
-			}
-			else if (args[0].equalsIgnoreCase("refuse")) {
-				
-				if (demandes.containsKey(playerSender)) {
-					playerSender.sendMessage(Util.sysMsg("Vous avez refusé le duel!"));
-					Player firstP = demandes.get(playerSender);
-					firstP.sendMessage(Util.sysMsg("Votre duel à été annulé"));
+				else if (args[0].equalsIgnoreCase("refuse")) {
+					
+					for(Demande_Duel dmd : this.demandes) {
+						if (dmd.getReceiver().equals(playerSender)) {
+							dmd.getReceiver().sendMessage(Util.sysMsg("Vous tremblez de peur face à ") + Util.pName(dmd.getSender().getName()));
+							dmd.getReceiver().sendMessage(Util.pName(dmd.getSender().getName()) + Util.sysMsg(" et refuse donc le duel."));
+						}
+					}
 				}
-			}
-			else if (Bukkit.getPlayer(target) != null) {
-				
-				Player target = Bukkit.getPlayer(target);
-				
-				if (demandes.containsKey(target)) {
-					playerSender.sendMessage(Util.sysMsg("§4 Il semblerait qu'on vous à voler votre cible :D"));
-				}
-				else {
-					demandes.put(target, playerSender);
-					playerSender.sendMessage(Util.sysMsg("Vous avez demander un duel à §1" + target));
-					target.sendMessage(Util.sysMsg("Vous venez de recevoir une proposition de duel de §1" + playerSender.getName()));
+				else if (Bukkit.getPlayer(target) != null) {
+					
+					for(Demande_Duel dmd : this.demandes) {
+						// On cible une personne qui a déjà été ciblée
+						if (dmd.getReceiver().equals(playerReceiver) && !dmd.getSender().equals(playerSender)){
+							playerSender.sendMessage(Util.sysMsg("Il semblerait qu'on vous ait volé votre cible :D"));
+					}
 				}
 			}
 			else {
