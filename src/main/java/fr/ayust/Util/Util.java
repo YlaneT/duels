@@ -24,7 +24,7 @@ public class Util {
 	 * @return coordonnées sous type Location
 	 */
     public static Location parseStringToLoc(String coordonnees){
-        float           x, y, z;
+        float x, y, z;
         StringTokenizer st = new StringTokenizer(coordonnees,",");
         x = Float.parseFloat(st.nextToken());
         y = Float.parseFloat(st.nextToken());

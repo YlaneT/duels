@@ -1,4 +1,4 @@
-package main.java.fr.ayust.command;
+package fr.ayust.command;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
