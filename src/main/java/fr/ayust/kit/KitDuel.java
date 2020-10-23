@@ -14,8 +14,12 @@ import java.util.List;
 public class KitDuel {
 
     public static void openInv(Player p) {
+        
+        /* TODO (mais pas tout de suite) : utiliser InventoryClickEvent
+            pour link les différents objets à une action
+         */
 
-        final Inventory inv = Bukkit.createInventory(p, 9, "§6§o Choisi le type de duel");
+        final Inventory inv = Bukkit.createInventory(p, 9, "§6§o Choisis le type de duel");
 
         List<String> list = new ArrayList<String>();
         ItemStack TridentDuel = new ItemStack(Material.TRIDENT, 1);
