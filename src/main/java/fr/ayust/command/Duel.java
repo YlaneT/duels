@@ -1,18 +1,42 @@
 package fr.ayust.command;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Duel implements CommandExecutor {
 
     private Map<Player, Player> players = new HashMap<>();
+
+
+        private static Duel INSTANCE;
+        private String info = "Initial info class";
+
+        private Duel() {
+            this.demandes = new ArrayList<>();
+            this.duel_en_cours = new ArrayList<>();
+        }
+
+        public static Duel getInstance() {
+            if(INSTANCE == null) {
+                INSTANCE = new Duel();
+            }
+
+            return INSTANCE;
+        }
+
+        // getters and setters
+
+
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -31,12 +55,14 @@ public class Duel implements CommandExecutor {
                 String targetName = args[0];
                 p.sendMessage(targetName);
 
+
                 if (args[0].equalsIgnoreCase("accept")) {
 
                     if (players.containsKey(p)) {
-                        p.sendMessage("§1" + p.getName() + " a accepté votre duel. Attendez qu'il/elle choisi le type de duel");
+                        p.sendMessage("Votre duel contre §6" + p.getName() + "va commencer");
                         Player firstP = players.get(p);
-                        firstP.sendMessage("Taper /choose pour choisir votre duel");
+                        firstP.sendMessage("§6" + p.getName() + "§r a accepté votre duel. Attendez qu'il/elle choisi le type de duel");
+
 
                         p.teleport(new Location(Bukkit.getWorld("world"), 134.412, 69, -208.534));
                         firstP.teleport(new Location(Bukkit.getWorld("world"), 129.045, 69, -208.772));
@@ -59,12 +85,12 @@ public class Duel implements CommandExecutor {
                         p.sendMessage("§4 Il semblerait qu'on vous à voler votre cible :D");
                     } else {
                         players.put(target, p);
-                        p.sendMessage("Vous avez demander un duel à §1" + targetName);
-                        target.sendMessage("Vous venez de recevoir une proposition de duel de §1" + p.getName());
+                        p.sendMessage("Vous avez demander un duel à §6" + targetName);
+                        target.sendMessage("Vous venez de recevoir une proposition de duel de §6" + p.getName());
                     }
 
                 } else {
-                    p.sendMessage("Le joueur §1" + targetName + "§r n'est pas connecté!");
+                    p.sendMessage("Le joueur §6" + targetName + "§r n'est pas connecté!");
                 }
             }
 
