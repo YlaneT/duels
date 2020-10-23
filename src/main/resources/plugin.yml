@@ -1,0 +1,11 @@
+name: duels
+author: Ayust
+main: fr.ayust.Main
+version: '1.0'
+description: Mon plugin de duel
+prefix: Duel
+commands:
+  choose:
+    description: Permet de choisir
+  duel:
+    description: Permet de lancer un duel

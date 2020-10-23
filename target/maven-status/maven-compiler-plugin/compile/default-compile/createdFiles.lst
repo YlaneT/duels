@@ -1,0 +1,5 @@
+fr\ayust\kit\teleport\teleport.class
+fr\ayust\Main.class
+fr\ayust\kit\KitDuel.class
+fr\ayust\command\ChooseCmd.class
+fr\ayust\command\Duel.class
