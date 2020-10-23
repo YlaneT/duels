@@ -1,7 +1,6 @@
 package fr.ayust.command;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,22 +21,25 @@ public class Duel implements CommandExecutor {
 
             if(args.length == 0){
 
-                p.sendMessage("/duel <Player>");
-                p.sendMessage("for accept or refuse: /duel <accept/refuse>");
+                p.sendMessage(systemMessage("/duel <Player>"));
+                p.sendMessage(systemMessage("for accept or refuse: /duel <accept/refuse>"));
                 return true;
             }
 
             if(args.length == 1) {
                 String targetName = args[0];
+                // FIXME : C'est cette ligne qui fait apparaitre le nom de la cible.
                 p.sendMessage(targetName);
 
                 if (args[0].equalsIgnoreCase("accept")) {
 
                     if (players.containsKey(p)) {
-                        p.sendMessage("§1" + p.getName() + " a accepté votre duel. Attendez qu'il/elle choisi le type de duel");
+                        p.sendMessage(systemMessage("/choose pour choisir le type de duel"));
                         Player firstP = players.get(p);
-                        firstP.sendMessage("Taper /choose pour choisir votre duel");
-
+                        firstP.sendMessage(systemMessage("§1" + p.getName() + "§r a accepté votre duel. Attendez qu'il/elle choisi le type de duel"));
+                        
+                        // FIXME : p = firstP l'autre joueur pas set
+                        firstP.setGameMode(GameMode.SURVIVAL);
                         p.teleport(new Location(Bukkit.getWorld("world"), 134.412, 69, -208.534));
                         firstP.teleport(new Location(Bukkit.getWorld("world"), 129.045, 69, -208.772));
 
@@ -46,9 +48,9 @@ public class Duel implements CommandExecutor {
                 } else if (args[0].equalsIgnoreCase("refuse")) {
 
                     if (players.containsKey(p)) {
-                        p.sendMessage("Vous avez refusé le duel!");
+                        p.sendMessage(systemMessage("Vous avez refusé le duel!"));
                         Player firstP = players.get(p);
-                        firstP.sendMessage("Votre duel à été annulé");
+                        firstP.sendMessage(systemMessage("Votre duel à été annulé"));
 
                     }
                 } else if (Bukkit.getPlayer(targetName) != null) {
@@ -56,20 +58,26 @@ public class Duel implements CommandExecutor {
                     Player target = Bukkit.getPlayer(targetName);
 
                     if (players.containsKey(target)) {
-                        p.sendMessage("§4 Il semblerait qu'on vous à voler votre cible :D");
+                        p.sendMessage(systemMessage("§4 Il semblerait qu'on vous à voler votre cible :D"));
                     } else {
                         players.put(target, p);
-                        p.sendMessage("Vous avez demander un duel à §1" + targetName);
-                        target.sendMessage("Vous venez de recevoir une proposition de duel de §1" + p.getName());
+                        p.sendMessage(systemMessage("Vous avez demander un duel à §1" + targetName));
+                        target.sendMessage(systemMessage("Vous venez de recevoir une proposition de duel de §1" + p.getName()));
                     }
 
                 } else {
-                    p.sendMessage("Le joueur §1" + targetName + "§r n'est pas connecté!");
+                    p.sendMessage(systemMessage("Le joueur §1" + targetName + "§r n'est pas connecté!"));
                 }
             }
 
+            
         }
 
         return false;
     }
+    
+    public static String systemMessage (String str){
+        return "§e <System>" + str;
+    }
+    
 }
