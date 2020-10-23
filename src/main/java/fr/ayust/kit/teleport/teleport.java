@@ -1,4 +1,4 @@
-package fr.ayust.kit.teleport;
+package main.java.fr.ayust.kit.teleport;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

@@ -1,4 +1,4 @@
-package fr.ayust.kit;
+package main.java.fr.ayust.kit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

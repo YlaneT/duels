@@ -1,4 +1,4 @@
-package fr.ayust.command;
+package main.java.fr.ayust.command;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
@@ -16,3 +16,4 @@ public class Duel {
 		this.inv_p2 = player2.getInventory();
 	}
 }
+

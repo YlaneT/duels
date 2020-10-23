@@ -1,6 +1,5 @@
-package fr.ayust.command;
+package main.java.fr.ayust.command;
 
-import fr.ayust.kit.KitDuel;
 import main.java.fr.ayust.Util.Util;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,7 +16,7 @@ public class ChooseCmd implements CommandExecutor {
         final Player p = ((Player) sender).getPlayer();
 
         if(label.equals("choose")) {
-            KitDuel.openInv(p);
+            main.java.fr.ayust.kit.KitDuel.openInv(p);
 
             p.sendMessage(Util.sysMsg("Choisis le type de duel"));
             return true;

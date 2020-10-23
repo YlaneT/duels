@@ -1,4 +1,4 @@
-package fr.ayust.command;
+package main.java.fr.ayust.command;
 
 import main.java.fr.ayust.Util.Util;
 import main.java.fr.ayust.command.Demande_Duel;
