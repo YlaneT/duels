@@ -1,5 +1,8 @@
-fr\ayust\kit\teleport\teleport.class
-fr\ayust\Main.class
-fr\ayust\kit\KitDuel.class
-fr\ayust\command\ChooseCmd.class
-fr\ayust\command\Duel.class
+main\java\fr\ayust\Util\Util.class
+main\java\fr\ayust\command\Duel.class
+main\java\fr\ayust\Main.class
+main\java\fr\ayust\command\ChooseCmd.class
+main\java\fr\ayust\command\Demande_Duel.class
+main\java\fr\ayust\kit\teleport\teleport.class
+main\java\fr\ayust\kit\KitDuel.class
+main\java\fr\ayust\command\Duel_Manager.class

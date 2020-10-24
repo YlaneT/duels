@@ -1,5 +1,6 @@
 package main.java.fr.ayust.command;
 
+import main.java.fr.ayust.Util.Util;
 import org.bukkit.entity.Player;
 
 public class Demande_Duel {
@@ -17,5 +18,10 @@ public class Demande_Duel {
 	
 	public Player getReceiver () {
 		return receiver;
+	}
+	
+	@Override
+	public String toString(){
+		return Util.sysMsg("sender : ") + Util.pName(sender.getName()) +  Util.sysMsg( " / receiver : ") + Util.pName(receiver.getName());
 	}
 }
