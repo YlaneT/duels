@@ -14,8 +14,8 @@ import java.util.List;
 public class Duel_Manager implements CommandExecutor {
 	
 	private static Duel_Manager INSTANCE;
-	private List<Demande_Duel> demandes;
-	private List<Duel> duels_en_cours;
+	private static List<Demande_Duel> demandes;
+	private static List<Duel> duels_en_cours;
 	
 	private Duel_Manager () {
 		this.demandes = new ArrayList<>();
@@ -38,10 +38,24 @@ public class Duel_Manager implements CommandExecutor {
 			Player playerSender = ( Player ) sender;
 			Player playerReceiver;
 			
+			// Si le joueur est en duel, stop
+			if (dueling(playerSender)){
+				// TODO : Pour ajout de /duel forfeit ajouter condition if args == 1 && args[0].equals("forfeit")
+				//  ou déplacer cette brique de code
+				playerSender.sendMessage(Util.sysMsg("Vous êtes déjà en duel, vous avez mieux à faire, non ?"));
+				return true; // fin de la commande mais la commande était valide.
+			}
+			
+			// Le joueur tape "/duel"
 			if (args.length == 0) {
-				
-				playerSender.sendMessage(Util.sysMsg("/duel <Player>"));
-				playerSender.sendMessage(Util.sysMsg("for accept or refuse: /duel <accept/refuse>"));
+				help(playerSender);
+				// Si le joueur a une demande de duel en attente, on lui envoie aussi la liste
+				for (Demande_Duel dmd : this.demandes){
+					if (dmd.contains_receiver(playerSender)){
+						playerSender.sendMessage(Util.sysMsg("Vous avez des demandes en attente : "));
+						duel_list(playerSender);
+					}
+				}
 				return true;
 			}
 			
@@ -68,8 +82,9 @@ public class Duel_Manager implements CommandExecutor {
 						}
 					}
 					
-					playerSender.setGameMode(GameMode.SURVIVAL);
-					playerReceiver.setGameMode(GameMode.SURVIVAL);
+					// On met mode aventure plutot que survie pour ne pas que les joueurs cassent les blocs
+					playerSender.setGameMode(GameMode.ADVENTURE);
+					playerReceiver.setGameMode(GameMode.ADVENTURE);
 					
 					playerSender.teleport(new Location(Bukkit.getWorld("world"), 134.412, 69, -208.534));
 					playerReceiver.teleport(new Location(Bukkit.getWorld("world"), 129.045, 69, -208.772));
@@ -77,9 +92,10 @@ public class Duel_Manager implements CommandExecutor {
 					this.demandes.remove(new Demande_Duel(playerSender, playerReceiver));
 					this.duels_en_cours.add(new Duel(playerSender, playerReceiver));
 					
-					//TODO : clear les inventaires et les modifier
 					playerSender.getInventory().clear();
 					playerReceiver.getInventory().clear();
+					
+					// TODO : set les équipements des deux joueurs
 				}
 				else if (args[0].equalsIgnoreCase("refuse")) {
 					
@@ -107,6 +123,10 @@ public class Duel_Manager implements CommandExecutor {
 		return false;
 	}
 	
+	/**
+	 * Envoie à playerSender la liste de demandes de duel.
+	 * @param playerSender joueur qui envoie la commande.
+	 */
 	private void duel_list (Player playerSender) {
 		StringBuilder sb = new StringBuilder(Util.sysMsg("Liste des demandes de duel :"));
 		for(Demande_Duel dmd : this.demandes) {
@@ -115,4 +135,27 @@ public class Duel_Manager implements CommandExecutor {
 		}
 		playerSender.sendMessage(sb.toString());
 	}
+	
+	/**
+	 * dueling est une fonction statique, on peut l'appeler via				Duel_Manager.dueling()
+	 * mais vu qu'on est dans Duel_Manager, on l'appelera directement via 	dueling()
+	 * @param player joueur a tester
+	 * @return si le joueur est en duel
+	 */
+	private static boolean dueling (Player player){
+		return duels_en_cours.contains(player); // contains renvoie un booléen
+	}
+	
+	/**
+	 * Envoie la liste des commandes pouvant suivre /duel
+	 * @param player joueur qui demande l'aide
+	 */
+	private static void help (Player player) {
+		player.sendMessage(Util.sysMsg("Commandes duel :"));
+		player.sendMessage(Util.sysMsg("/duel : Show this message"));
+		player.sendMessage(Util.sysMsg("/duel <accept/refuse> : Accept or refuse last duel request")); // TODO : Check : Maybe first
+		player.sendMessage(Util.sysMsg("/duel list : Liste de toutes les demandes de duel"));
+		player.sendMessage(Util.sysMsg("/duel forfeit ou /duel ff : Se rendre (durant un duel)"));
+	}
+	
 }

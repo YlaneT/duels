@@ -20,6 +20,14 @@ public class Demande_Duel {
 		return receiver;
 	}
 	
+	public boolean contains_sender(Player player){
+		return this.sender.equals(player);
+	}
+	
+	public boolean contains_receiver(Player player){
+		return this.receiver.equals(player);
+	}
+	
 	@Override
 	public String toString(){
 		return Util.sysMsg("sender : ") + Util.pName(sender.getName()) +  Util.sysMsg( " / receiver : ") + Util.pName(receiver.getName());
