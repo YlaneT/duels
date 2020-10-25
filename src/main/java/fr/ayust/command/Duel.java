@@ -15,5 +15,10 @@ public class Duel {
 		this.inv_p1 = player1.getInventory();
 		this.inv_p2 = player2.getInventory();
 	}
+	
+	public boolean contains(Player player){
+		return (this.player1.equals(player) || this.player2.equals(player));
+	}
+	
 }
 
