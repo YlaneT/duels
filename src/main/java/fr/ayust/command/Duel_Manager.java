@@ -14,8 +14,8 @@ public class Duel_Manager implements CommandExecutor {
 	private static List<Duel> duels_en_cours;
 	
 	private Duel_Manager () {
-		this.demandes = new ArrayList<>();
-		this.duels_en_cours = new ArrayList<>();
+		demandes = new ArrayList<>();
+		duels_en_cours = new ArrayList<>();
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class Duel_Manager implements CommandExecutor {
 			if (args.length == 0) {
 				help(playerSender);
 				// Si le joueur a une demande de duel en attente, on lui envoie aussi la liste
-				for(Demande_Duel dmd : this.demandes) {
+				for(Demande_Duel dmd : demandes) {
 					if (dmd.contains_receiver(playerSender)) {
 						playerSender.sendMessage(Util.sysMsg("Vous avez des demandes en attente : "));
 						duel_list(playerSender);
@@ -76,19 +76,25 @@ public class Duel_Manager implements CommandExecutor {
 				else if (target.equalsIgnoreCase("accept")) {
 					// FIXME : sortir du forEach dès qu'on trouve une valeur
 					boolean duel_found = false;
-					for(Demande_Duel dmd : this.demandes) {
+					for(Demande_Duel dmd : demandes) {
 						Player initialSender;
 						if (dmd.getReceiver().equals(playerSender)) {
 							duel_found = true;
 							initialSender = dmd.getSender();
-							playerSender.sendMessage(Util.sysMsg("Vous avez accepté le duel contre ") + Util.pName(initialSender.getName()));
-							initialSender.sendMessage(Util.pName(playerSender.getName()) + Util.sysMsg(" a accepté votre duel."));
-							
-							duels_en_cours.add(new Duel(dmd.getSender(), dmd.getReceiver()));
-							demandes.remove(dmd);
-							
-							duel_accept(initialSender, playerSender);
-							break;
+							if (!dueling(initialSender)) {
+								playerSender.sendMessage(Util.sysMsg("Vous avez accepté le duel contre ") + Util.pName(initialSender.getName()));
+								initialSender.sendMessage(Util.pName(playerSender.getName()) + Util.sysMsg(" a accepté votre duel."));
+								
+								duels_en_cours.add(new Duel(dmd.getSender(), dmd.getReceiver()));
+								demandes.remove(dmd);
+								
+								duel_accept(initialSender, playerSender);
+								break;
+							}
+							else {
+								playerSender.sendMessage(Util.sysMsg("Le joueur ") + Util.pName(initialSender.getName()) + Util.sysMsg(" est déjà en train de combattre."));
+								playerSender.sendMessage(Util.sysMsg("Vous ne pouvez pas accepter sa demande pour le moment"));
+							}
 						}
 					}
 					if (!duel_found) {
@@ -115,7 +121,7 @@ public class Duel_Manager implements CommandExecutor {
 					
 					if (Bukkit.getPlayer(target) != null) {
 						
-						for(Demande_Duel dmd : this.demandes) {
+						for(Demande_Duel dmd : demandes) {
 							// On cible une personne qui a déjà été ciblée
 							if (dmd.getReceiver().equals(playerReceiver) && !dmd.getSender().equals(playerSender)) {
 								playerSender.sendMessage(Util.sysMsg("Il semblerait qu'on vous ait volé votre cible :D"));
