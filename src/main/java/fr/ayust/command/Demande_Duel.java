@@ -10,8 +10,8 @@ public class Demande_Duel {
 	public Demande_Duel ( Player sender, Player receiver ) {
 		this.sender = sender;
 		this.receiver = receiver;
-		this.sender.sendMessage(Util.sysMsg("Vous avez demander un duel à ") + Util.pName(this.receiver.getName()));
-		this.receiver.sendMessage(Util.sysMsg("Vous venez de recevoir une proposition de duel de ") + Util.pName(this.sender.getName()));
+		this.sender.sendMessage(Util.sysMsg("Vous avez demand un duel à ") + Util.pName(this.receiver));
+		this.receiver.sendMessage(Util.sysMsg("Vous venez de recevoir une proposition de duel de ") + Util.pName(this.sender));
 		
 	}
 	
@@ -36,6 +36,6 @@ public class Demande_Duel {
 	}
 	@Override
 	public String toString(){
-		return Util.sysMsg("sender : ") + Util.pName(sender.getName()) +  Util.sysMsg( " / receiver : ") + Util.pName(receiver.getName());
+		return Util.sysMsg("sender : ") + Util.pName(sender) +  Util.sysMsg( " / receiver : ") + Util.pName(receiver);
 	}
 }

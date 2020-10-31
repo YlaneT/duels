@@ -1,7 +1,6 @@
 package main.java.fr.ayust.kit;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -15,8 +14,10 @@ public class KitDuel {
 
     public static void openInv(Player p) {
         
-        /* TODO (mais pas tout de suite) : utiliser InventoryClickEvent
-            pour link les différents objets à une action
+        /*
+         * TODO (mais pas tout de suite)
+         * utiliser InventoryClickEvent
+         * pour link les différents objets à une action
          */
 
         final Inventory inv = Bukkit.createInventory(p, 9, "§6§o Choisis le type de duel");
@@ -55,5 +56,48 @@ public class KitDuel {
 
 
 
+    }
+    
+    public static void setEquipementForDuel ( Player player ) {
+        
+        player.setGameMode(GameMode.ADVENTURE);
+        
+        
+        ItemStack shield     = new ItemStack(Material.SHIELD);
+        ItemStack boots      = new ItemStack(Material.IRON_BOOTS);
+        ItemStack helmet     = new ItemStack(Material.IRON_HELMET);
+        ItemStack leggings   = new ItemStack(Material.IRON_LEGGINGS);
+        ItemStack chestplate = new ItemStack(Material.IRON_CHESTPLATE);
+        
+        
+        player.getInventory().addItem(new ItemStack(Material.DIAMOND_SWORD));
+        player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 10));
+        
+        player.getInventory().setBoots(boots);
+        player.getInventory().setHelmet(helmet);
+        player.getInventory().setLeggings(leggings);
+        player.getInventory().setItemInOffHand(shield);
+        player.getInventory().setChestplate(chestplate);
+        
+        // Life and food levels
+        player.setHealth(20.0);
+        player.setFoodLevel(200);
+        
+        
+        // CUSTOM BOW
+        ItemStack customBow = new ItemStack(Material.BOW);
+        ItemMeta  customEn  = customBow.getItemMeta();
+        customEn.setDisplayName("One shot");
+        
+        List<String> lore = new ArrayList<>();
+        lore.add("This bow was gifted to you by the devil himself.");
+        lore.add("But be careful, you are not the only one who received this gift");
+        customEn.setLore(lore);
+        
+        customEn.addEnchant(Enchantment.ARROW_DAMAGE, 666, true);
+        customBow.setItemMeta(customEn);
+        
+        player.getInventory().setItem(3, customBow);
+        player.getInventory().setItem(9, new ItemStack(Material.ARROW, 5));
     }
 }

@@ -2,6 +2,7 @@ package main.java.fr.ayust.Util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.util.StringTokenizer;
 
@@ -15,8 +16,8 @@ public class Util {
 		return "§e " + str;
 	}
 	
-	public static String pName (String str){
-		return "§6 " + str;
+	public static String pName ( Player player){
+		return "§6 " + player.getName();
 	}
 	
 	/**
