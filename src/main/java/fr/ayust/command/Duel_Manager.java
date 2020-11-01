@@ -217,7 +217,7 @@ public class Duel_Manager implements CommandExecutor {
 	 * @param player joueur a tester
 	 * @return si le joueur est en duel
 	 */
-	private static boolean dueling ( Player player ) {
+	public static boolean dueling ( Player player ) {
 		return duels_en_cours.contains(player); // contains renvoie un booléen
 	}
 	
@@ -297,5 +297,9 @@ public class Duel_Manager implements CommandExecutor {
 			}
 		}
 		playerSender.sendMessage(sb.toString());
+	}
+	
+	public static List<Duel> getDuels_en_cours () {
+		return duels_en_cours;
 	}
 }
