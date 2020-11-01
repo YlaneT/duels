@@ -1,5 +1,6 @@
 package main.java.fr.ayust;
 
+
 import main.java.fr.ayust.command.Duel_Manager;
 import main.java.fr.ayust.listener.PlayerRespawn;
 import org.bukkit.Bukkit;
@@ -10,6 +11,11 @@ public class Main extends JavaPlugin {
 
    @Override
    public void onEnable() {
+
+       PluginManager pm = Bukkit.getPluginManager();
+       pm.registerEvents(new PlayerRespawn(), Duel_Manager.getInstance());
+
+      
         getLogger().info("[Duel] has been enable");
         getCommand("duel").setExecutor(Duel_Manager.getInstance());
    }
