@@ -1,6 +1,7 @@
 package main.java.fr.ayust.listener;
 
 
+import main.java.fr.ayust.Main;
 import main.java.fr.ayust.Util.Util;
 import main.java.fr.ayust.command.*;
 import org.bukkit.GameMode;
@@ -17,10 +18,13 @@ public class FinDuel implements Listener {
     private Player winner;
     private Duel duel;
     
+    public FinDuel ( Main plugin) {
+    }
     
     @EventHandler
     public void onDeath ( PlayerDeathEvent event ) {
         this.loser = event.getEntity();
+        this.loser.sendMessage("test à la mort d'un joueur");
         if (Duel_Manager.dueling(loser)) {
             for(Duel duel : Duel_Manager.getDuels_en_cours()) {
                 if (duel.contains(loser)) {

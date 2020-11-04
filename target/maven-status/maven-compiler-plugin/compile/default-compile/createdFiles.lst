@@ -1,4 +1,5 @@
 main\java\fr\ayust\Util\Util.class
+main\java\fr\ayust\listener\FinDuel.class
 main\java\fr\ayust\command\Duel.class
 main\java\fr\ayust\Main.class
 main\java\fr\ayust\command\ChooseCmd.class

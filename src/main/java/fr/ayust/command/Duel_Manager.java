@@ -218,7 +218,12 @@ public class Duel_Manager implements CommandExecutor {
 	 * @return si le joueur est en duel
 	 */
 	public static boolean dueling ( Player player ) {
-		return duels_en_cours.contains(player); // contains renvoie un booléen
+		for (Duel d : duels_en_cours){
+			if (d.contains(player)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -268,7 +273,6 @@ public class Duel_Manager implements CommandExecutor {
 		KitDuel.setEquipementForDuel(initialSender);
 		KitDuel.setEquipementForDuel(playerAccepting);
 		
-		//TODO : lancer la fonction avec event handler on Death
 	}
 	
 	/**
