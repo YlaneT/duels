@@ -233,11 +233,11 @@ public class Duel_Manager implements CommandExecutor {
 	 */
 	private static void help ( Player player ) {
 		player.sendMessage(Util.sysMsg("Commandes duel :"));
-		player.sendMessage(Util.sysMsg("/duel help : Show this message"));
-		player.sendMessage(Util.sysMsg("/duel <accept/refuse> : Accept or refuse first duel request"));
-		player.sendMessage(Util.sysMsg("/duel list : Liste de toutes les demandes de duel vous concernant"));
-		player.sendMessage(Util.sysMsg("/duel list_all : Liste de toutes les demandes de duel"));
-		player.sendMessage(Util.sysMsg("/duel forfeit ou /duel ff : Se rendre (durant un duel)"));
+		player.sendMessage(Util.sysMsg("/duel help : Affiche ce message"));
+		player.sendMessage(Util.sysMsg("/duel <accept/refuse> : Accepter ou refuser la première demande de duel vous concernant"));
+		player.sendMessage(Util.sysMsg("/duel list : Liste toutes les demandes de duel vous concernant"));
+		player.sendMessage(Util.sysMsg("/duel list_all : Liste toutes les demandes de duel"));
+		player.sendMessage(Util.sysMsg("/duel forfeit ou /duel ff : WIP" /*Se rendre (durant un duel)*/));
 	}
 	
 	/**
