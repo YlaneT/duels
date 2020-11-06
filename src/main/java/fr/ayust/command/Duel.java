@@ -5,22 +5,23 @@ import main.java.fr.ayust.listener.FinDuel;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 public class Duel implements Listener {
 	
 	private Player player1;
-	private PlayerInventory inv_p1;
+	private ItemStack[] inv_p1;
 	private Player player2;
-	private PlayerInventory inv_p2;
+	private ItemStack[] inv_p2;
 	private Location loc1;
 	private Location loc2;
 	
 	public Duel ( Player player1, Player player2 ) {
 		this.player1 = player1;
 		this.player2 = player2;
-		this.inv_p1 = player1.getInventory();
-		this.inv_p2 = player2.getInventory();
+		this.inv_p1 = player1.getInventory().getContents();
+		this.inv_p2 = player2.getInventory().getContents();
 		this.loc1 = player1.getLocation();
 		this.loc2 = player2.getLocation();
 	}
@@ -38,11 +39,11 @@ public class Duel implements Listener {
 		return player2;
 	}
 	
-	public PlayerInventory getInv_p1 () {
+	public ItemStack[] getInv_p1 () {
 		return inv_p1;
 	}
 	
-	public PlayerInventory getInv_p2 () {
+	public ItemStack[] getInv_p2 () {
 		return inv_p2;
 	}
 	

@@ -85,7 +85,7 @@ public class KitDuel {
         
         
         // CUSTOM BOW
-        ItemStack customBow = new ItemStack(Material.BOW);
+        /*ItemStack customBow = new ItemStack(Material.BOW);
         ItemMeta  customEn  = customBow.getItemMeta();
         customEn.setDisplayName("One shot");
         
@@ -98,6 +98,6 @@ public class KitDuel {
         customBow.setItemMeta(customEn);
         
         player.getInventory().setItem(3, customBow);
-        player.getInventory().setItem(9, new ItemStack(Material.ARROW, 5));
+        player.getInventory().setItem(9, new ItemStack(Material.ARROW, 5));*/
     }
 }

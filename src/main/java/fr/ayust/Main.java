@@ -13,6 +13,8 @@ public class Main extends JavaPlugin {
     
     @Override
     public void onEnable () {
+
+
         
         PluginManager pm = getServer().getPluginManager();
         FinDuel listener = new FinDuel(this);

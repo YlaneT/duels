@@ -263,9 +263,10 @@ public class Duel_Manager implements CommandExecutor {
 	private static void duel_accept ( Player initialSender, Player playerAccepting ) {
 		// On met mode aventure plutot que survie pour ne pas que les joueurs cassent les blocs
 		duels_en_cours.add(new Duel(initialSender, playerAccepting));
+
 		
-		initialSender.teleport(new Location(Bukkit.getWorld("world"), 81.0, 70.0, -55.0));
-		playerAccepting.teleport(new Location(Bukkit.getWorld("world"), 85.0, 70.0, -51));
+		initialSender.teleport(new Location(Bukkit.getWorld("world"), 336.0, 70.0, -257.0));
+		playerAccepting.teleport(new Location(Bukkit.getWorld("world"), 322.0, 71.0, -266));
 		
 		initialSender.getInventory().clear();
 		playerAccepting.getInventory().clear();
