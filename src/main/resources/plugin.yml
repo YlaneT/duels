@@ -13,7 +13,9 @@ commands:
     description: Liste toutes les demandes de duel vous concernant.
   duel list_all:
     description: Liste toutes les demandes de duel.
-  duel accept/refuse:
-    description: Permet de traiter une demande de duel.
-  duel forfeit | ff :
-    description: Abandon du duel en cours. (WIP)
+  duel accept :
+    description: Permet d'accepter une demande de duel.
+  duel refuse:
+    description: Permet de refuser une demande de duel.
+  duel forfeit:
+    description: (WIP) Abandon du duel en cours. equivalent /duel ff.

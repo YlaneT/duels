@@ -265,8 +265,8 @@ public class Duel_Manager implements CommandExecutor {
 		duels_en_cours.add(new Duel(initialSender, playerAccepting));
 
 		
-		initialSender.teleport(new Location(Bukkit.getWorld("world"), 336.0, 70.0, -257.0));
-		playerAccepting.teleport(new Location(Bukkit.getWorld("world"), 322.0, 71.0, -266));
+		initialSender.teleport(new Location(Bukkit.getWorld("world"), 80, 70.0, -57));
+		playerAccepting.teleport(new Location(Bukkit.getWorld("world"), 85, 70.0, -52));
 		
 		initialSender.getInventory().clear();
 		playerAccepting.getInventory().clear();

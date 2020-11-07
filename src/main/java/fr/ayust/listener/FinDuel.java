@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 
@@ -47,28 +46,24 @@ public class FinDuel implements Listener {
 
             this.duel.getPlayer1().getInventory().clear();
             this.duel.getPlayer2().getInventory().clear();
-
-
+    
+            //Fixme : loser random respawn
             this.duel.getPlayer1().teleport(this.duel.getLoc1());
             this.duel.getPlayer2().teleport(this.duel.getLoc2());
-            // FIXME : récuperer inventaire du joueur qui meurt
-            rendItem(this.duel.getPlayer1(), this.duel.getInv_p1());
-            rendItem(this.duel.getPlayer2(), this.duel.getInv_p2());
+            
             
             loser.setGameMode(GameMode.CREATIVE);
             winner.setGameMode(GameMode.CREATIVE);
             
+            // FIXME : récuperer inventaire et stuff du loser
+            //  récupérer stuff du winner
+            this.duel.rendItem();
+            this.duel.rendStuff();
+            
+            loser.spigot().respawn();
+            
             Duel_Manager.getDuels_en_cours().remove(this.duel);
         }
-    }
-
-    public static void rendItem(Player player, ItemStack[] items) {
-
-
-        for (int i = 0; i <= 35; i++) {
-            player.getInventory().setItem(i, items[i]);
-        }
-
     }
 }
 

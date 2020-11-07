@@ -5,7 +5,17 @@ version: '1.0'
 description: Mon plugin de duel
 prefix: Duel
 commands:
-  choose:
-    description: Permet de choisir
   duel:
-    description: Permet de lancer un duel
+    description: Affiche l'aide ou le premier duel a traiter.
+  duel help:
+    description: Affiche toutes les commandes.
+  duel list:
+    description: Liste toutes les demandes de duel vous concernant.
+  duel list_all:
+    description: Liste toutes les demandes de duel.
+  duel accept :
+    description: Permet d'accepter une demande de duel.
+  duel refuse:
+    description: Permet de refuser une demande de duel.
+  duel forfeit:
+    description: (WIP) Abandon du duel en cours. equivalent /duel ff.
